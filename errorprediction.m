@@ -4,7 +4,7 @@ close all;
 
 
 
-I=imread('C:\Users\harsh\Documents\MATLAB\baboon.tiff');
+I=imread('');
 I=imresize(I,[512,512]);
 
 
@@ -24,112 +24,7 @@ a=checkerboard(n);
 count=((R*C)-((2*R)+(2*(C-2))))/2;
 peArr=double(zeros(count,1));
 k=1;
-% for i=2:R-1
-%     for j=2:C-1
-%         if a(i,j)==0
-%             sum0=double(I(i-1,j))+double(I(i,j-1))+double(I(i+1,j))+double(I(i,j+1));
-%             pred=round((sum0/4));
-%             pe=pred-I(i,j);
-%             peArr(k)=pe;
-%             k=k+1;
-%         end
-%     end
-% end
-%figure;histogram(peArr);title('Prediction errors before histogram shifting');
-% h=histogram(peArr,1);
-% mini=min(peArr(:));
-%histogram shifting
-% I1=I;
-% peArr1=double(zeros(count,1));
-% k1=1;
-% for i=2:R-1
-%     for j=2:C-1
-%         if a(i,j)==0
-%             sum1=double(I1(i-1,j))+double(I1(i,j-1))+double(I1(i+1,j))+double(I1(i,j+1));
-%             pred1=round((sum1/4));
-%             pe1=pred1-I1(i,j);
-%             if pe1>0 %if prediction error is greater than 0
-%                 I1(i,j)=I1(i,j)-1; %decrease the original pixel value by 1
-%                 pe2=pred1-(I1(i,j)); %prediction error increases by 1.histogram is shifted to right by 1
-%                 peArr1(k1)=pe2;
-%                 k1=k1+1;
-%             elseif pe1<0 %if prediction error is less than 0
-%                 I1(i,j)=I1(i,j)+1; %increase the original pixel value by 1
-%                 pe2=pred1-(I1(i,j)); %prediction error decreases by 1.histogram is shifted to left by 1
-%                 peArr1(k1)=pe2;
-%                 k1=k1+1;
-%             else %if prediction error is 0, do not alter the pixel
-%                 peArr1(k1)=pe1;
-%                 k1=k1+1;
-%             end
-%         end
-%     end
-% end
-%messsage embedding
-% H1=imhist(peArr1);
-% [Height,peak]=max(H1);
-% figure;imhist(H1);title('After histogram Shifting');
-% [maxi,freq]=mode(peArr1); %returns the prediction error which occured more
-% D=randi([0,1],1,freq);
-% idx=1;
-% IS=I1;
-% for i=2:R-1
-%     for j=2:C-1
-%         if a(i,j)==0
-%             sum2=double(IS(i-1,j))+double(IS(i,j-1))+double(IS(i+1,j))+double(IS(i,j+1));
-%             pred2=round(sum2/4);
-%             err=pred2-IS(i,j);
-%             if err==0 %if prediction error=0, use that pixel for data hiding
-%                 DB=D(1,idx); %process one at a time
-%                 if DB==1
-%                     IS(i,j)=IS(i,j)+1; %add one to the pixel 
-%                 end
-%                 idx=idx+1;
-%             end
-%         end
-%     end
-% end
-% % disp(Height);
-% figure;imshow(IS,[]);title('Stego Image');
-% %message extraction
-%if the pre;diction error is 1 in stegeo image, extract 1, else extract 0
-% EM=zeros(1,freq);
-% K2=1;
-% IR=IS;
-% for i=2:R-1
-%     for j=2:C-1
-%         if a(i,j)==0
-%             s_sum=double(IR(i,j-1))+double(IR(i-1,j))+double(IR(i,j+1))+double(IR(i+1,j));
-%             s_pred=round(s_sum/4);
-%             s_err=s_pred-IR(i,j);
-%             if(s_err==0) %if prediction error is 0, extract 0 from the pixel
-%                 EM(1,K2)=0;
-%                 K2=K2+1;
-%             elseif(s_err==-1) %if prediction error is -1, extract 1 from that pixel
-%                 EM(1,K2)=1;
-%                 K2=K2+1;
-%                 IR(i,j)=IR(i,j)-1;
-%             elseif(s_err>0) %if prediction error is >1, increase the original pixel value by 1 to recover the original image
-%                 IR(i,j)=IR(i,j)+1;
-%             else %if prediction error is <1, decrease the original pixel value by 1 to recover the original image
-%                 IR(i,j)=IR(i,j)-1;
-%             end
-%         end
-%     end
-% end
-% figure;imshow(IR,[]);title('Image after messsage extraction');
-% ER=freq/(R*C);  %Embedding rate
-% BER=sum(abs(D-EM))/freq;    %bit error rate
-% PS=psnr(I,IR);  %peak signal to noise ratio
-% len=length(srcFiles);
-% q=1;
-% RES=double(zeros(len,1));
-% SSIM=ssim(I,IR);
-% for i=1:len
-%     RES(q)=SSIM;
-%     q=q+1;
-% end
-%new prediction error algo
+
 newArr=double(zeros(count,1));
 newInd=1;
 for i=2:R-1
