@@ -1,12 +1,13 @@
 clc;
 clear all;
 close all;
-I=imread();
+I=imread('man.tiff');
 I=imresize(I,[512,512]);
 [R,C,Z]=size(I);
 if(size(I,3)~=1)
     I=rgb2gray(I);
 end
+H=imhist(I);
 [Height, Peak]=max(H);
 PixPeak=Peak-1;
 I1=I;
@@ -17,8 +18,9 @@ for x=1:R
         end
     end
 end
-figure.imshow(I);title('Origional Image');
-figure.imshow(I1);title('Stego Image');
+subplot(2,2,1); image(I);title('Original Image');
+subplot(2,2,2); image(I1);title('Stego Image');
+
 D=randi([0,1],1,Height);
 K=1;
 IS=I1;
@@ -29,10 +31,10 @@ for x=1:R
             if DB==1
                 IS(x,y)=IS(x,y)+1;
             end
-        k=k+1;
+        K=K+1;
         end
     end
 end
-figure.imshow(IS,[]);title('stegodata_image');
+subplot(2,2,3); image(IS);title('Stego Data Image');
 
             
