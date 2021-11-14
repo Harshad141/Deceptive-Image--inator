@@ -21,7 +21,7 @@ for x=1:R
         if E(x,y)<=PixPeak
             IR(x,y)=E(x,y);
         elseif E(x,y) > PixPeak
-            IR(x,y)=R(x,y);
+            IR(x,y)=E(x,y);
         end
     end
 end
