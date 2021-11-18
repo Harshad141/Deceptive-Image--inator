@@ -1,4 +1,4 @@
-# Secure Data transmission using  RC4
+# Deceptive Image -inator
 ## Crytography Project AY 2020
 ## Authors
  [Chandan]()
@@ -7,7 +7,7 @@
  
  [Tejashwar_Reddy]()
  
- [sathvikchandu]()
+ [Sathvikchandu]()
  
  [Umar_Ahemad]()
  
@@ -75,6 +75,6 @@
 
 [Click Here](https://github.com/Harshad141/Cryptography-Project-/blob/main/main/dataextraction.m) Matab Code for Data Extraction and Image recovery
 
-### Outputs
+[Click Here]() For full project report
 
 
