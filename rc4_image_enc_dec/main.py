@@ -121,7 +121,7 @@ def decryption(cipher_text, key):
 	    decrypted_to_bits += '0'*(n-len(bin(i)[2:]))+bin(i)[2:]
     return decrypted_to_bits #Gives decrypted image as ouitput
 
-#
+#Function that defines pixel values and convert it into binary
 def image_decoder(img_og):
     rgb_matrix = img_og.getdata()
     rgb_as_bin = ''
@@ -130,7 +130,7 @@ def image_decoder(img_og):
             rgb_as_bin+=bin(col)[2:].zfill(8)
     return rgb_as_bin
 
-#
+#Function that converts binary to pixel values 
 def image_encoder(rgb_as_bin,width,height,mode):
     rgb_list = []
     for i in range(0,len(rgb_as_bin),8):
