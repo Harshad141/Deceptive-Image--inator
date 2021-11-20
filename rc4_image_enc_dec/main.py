@@ -5,9 +5,7 @@ MOD = 256
 try:
     import PIL
     from PIL import Image
-    import tkinter as tk 
-    from tkinter import filedialog
-    import time
+    
 except ModuleNotFoundError:
     install('pillow')
     install('image')
