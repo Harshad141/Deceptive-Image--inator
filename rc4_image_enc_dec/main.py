@@ -69,7 +69,7 @@ def encryption(plain_text, key):
 
 #Defining decryption function
 def decryption(cipher_text, key):
-    n = 7
+    n = 8
     S = [i for i in range(0, 2**n)]
     key_list = [key[i:i + n] for i in range(0, len(key), n)]
     for i in range(len(key_list)):
