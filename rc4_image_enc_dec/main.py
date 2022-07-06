@@ -7,13 +7,14 @@ try:
     from PIL import Image
     import tkinter as tk 
     from tkinter import filedialog
-    import time
 except ModuleNotFoundError:
     install('pillow')
     install('image')
+
+#Defining encryption function
 def encryption(plain_text, key):
     
-    n = 7
+    n = 8
     S = [i for i in range(0, 2**n)]
     key_list = [key[i:i + n] for i in range(0, len(key), n)]
     for i in range(len(key_list)):
@@ -25,20 +26,26 @@ def encryption(plain_text, key):
     if diff != 0:
 	    for i in range(0, diff):
 		    key_list.append(key_list[i])
+
+    #First Step of RC4:KSA
     def KSA():
         j = 0
         N = len(S)
+        #implementing the algorithm of KSA
         for i in range(0, N):
             j = (j + S[i]+key_list[i]) % N
             S[i], S[j] = S[j], S[i]
         initial_permutation_array = S
     
     KSA()
+
+    #Second step of RC4:PGRA
     def PGRA():
 	    N = len(S)
 	    i = j = 0
 	    global key_stream
 	    key_stream = []
+        #implementing the algorithm foof PGRA
 	    for k in range(0, len(pt)):
 		    i = (i + 1) % N
 		    j = (j + S[i]) % N
@@ -46,6 +53,8 @@ def encryption(plain_text, key):
 		    t = (S[i]+S[j]) % N
 		    key_stream.append(S[t])
     PGRA()
+
+    #Defining XOR operation
     def XOR():
 	    global cipher_text
 	    cipher_text = []
@@ -56,9 +65,11 @@ def encryption(plain_text, key):
     encrypted_to_bits = ""
     for i in cipher_text:
 	    encrypted_to_bits += '0'*(n-len(bin(i)[2:]))+bin(i)[2:]
-    return encrypted_to_bits
+    return encrypted_to_bits #Gives encrypted image as ouitput
+
+#Defining decryption function
 def decryption(cipher_text, key):
-    n = 7
+    n = 8
     S = [i for i in range(0, 2**n)]
     key_list = [key[i:i + n] for i in range(0, len(key), n)]
     for i in range(len(key_list)):
@@ -71,6 +82,8 @@ def decryption(cipher_text, key):
     if diff != 0:
 	    for i in range(0, diff):
 		    key_list.append(key_list[i])
+
+    #First Step of RC4:KSA
     def KSA():
 	    j = 0
 	    N = len(S)
@@ -79,6 +92,8 @@ def decryption(cipher_text, key):
 		    S[i], S[j] = S[j], S[i]
 	    initial_permutation_array = S
     KSA()
+
+    #Second step of RC4:PGRA
     def do_PGRA():
 	    N = len(S)
 	    i = j = 0
@@ -92,6 +107,8 @@ def decryption(cipher_text, key):
 		    key_stream.append(S[t])
     do_PGRA()
     cipher_text = [int(cipher_text[i:i + n],2) for i in range(0, len(cipher_text), n)]
+
+    #Defining nad implementing XOR operation
     def do_XOR():
 	    global original_text
 	    original_text = []
@@ -102,7 +119,9 @@ def decryption(cipher_text, key):
     decrypted_to_bits = ""
     for i in original_text:
 	    decrypted_to_bits += '0'*(n-len(bin(i)[2:]))+bin(i)[2:]
-    return decrypted_to_bits
+    return decrypted_to_bits #Gives decrypted image as ouitput
+
+#Function that defines pixel values and convert it into binary
 def image_decoder(img_og):
     rgb_matrix = img_og.getdata()
     rgb_as_bin = ''
@@ -111,6 +130,7 @@ def image_decoder(img_og):
             rgb_as_bin+=bin(col)[2:].zfill(8)
     return rgb_as_bin
 
+#Function that converts binary to pixel values 
 def image_encoder(rgb_as_bin,width,height,mode):
     rgb_list = []
     for i in range(0,len(rgb_as_bin),8):
@@ -122,7 +142,7 @@ def image_encoder(rgb_as_bin,width,height,mode):
     else:
         cons_img.save('dec_img.png')
         
-    
+#Defining main function that saves images after encryption/decryption
 def main():
     print("Please upload the image...")
     root = tk.Tk()
@@ -146,7 +166,3 @@ def main():
         image_encoder(og_text,width,height,0)
         print("Encrypted image saved as dec_img.png")
 main()
-        
-        
-
-
